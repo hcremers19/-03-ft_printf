@@ -35,14 +35,22 @@ int	printf_putunbr(unsigned int i, int count)
 	if (i)
 		count = count + ft_uintlen(i);
 	else
-		count = 1;
+		count = count + 1;
 	return (count);
 }
 
 int	printf_putstr(char *str, int count)
 {
-	ft_putstr_fd(str, 1);
-	count = count + ft_strlen(str);
+	if (str)
+	{
+		ft_putstr_fd(str, 1);
+		count = count + ft_strlen(str);
+	}
+	else
+	{
+		ft_putstr_fd("(null)", 1);
+		count = count + 6;
+	}
 	return (count);
 }
 
@@ -55,7 +63,7 @@ int	printf_putnbr_base(unsigned int i, int count, char c)
 	if (i)
 		count = count + ft_uintlen_base(i, 16);
 	else
-		count = 1;
+		count = count + 1;
 	return (count);
 }
 
@@ -63,7 +71,10 @@ int	printf_putaddress(unsigned long i, int count)
 {
 	ft_putstr_fd("0x", 1);
 	ft_putlong_base(i, "0123456789abcdef");
-	count = count + 2 + ft_uintlen_base(i, ft_strlen("0123456789abcdef"));
+	if (i)
+		count = count + 2 + ft_uintlen_base(i, ft_strlen("0123456789abcdef"));
+	else
+		count = count + 3;
 	return (count);
 }
 
@@ -117,18 +128,18 @@ int	main(void)
 	char	ctr;
 
 	str = "string";
-	itg = 4294967295;
+	itg = 0;
 	ctr = 'e';
-	ft_printf("String:		%s	%p\n", str, str);
+	ft_printf("String:		%s	%p\n", NULL, NULL);
 	ft_printf("Character:	%c	%%\n", ctr);
 	ft_printf("Integer:	%d	%i	%u	%x	%X\n\n", itg, itg, itg, itg, itg);
-	printf("String:		%s	%p\n", str, str);
+	printf("String:		%s	%p\n", NULL, NULL);
 	printf("Character:	%c	%%\n", ctr);
 	printf("Integer:	%d	%i	%u	%x	%X\n\n", itg, itg, itg, itg, itg);
-	ft_printf("%d\n", ft_printf("%x\t", -4294967295));
-	printf("%d\n", printf("%x\t", -4294967295));
-	ft_printf("%d\n", ft_printf("%p\t", -4294967295));
-	printf("%d\n", printf("%p\t", -4294967295));
+	ft_printf("%d\n", ft_printf(" %X \t", -1));
+	printf("%d\n", printf(" %X \t", -1));
+	ft_printf("%d\n", ft_printf(" %s \t", NULL));
+	printf("%d\n", printf(" %s \t", NULL));
 	return (0);
 }
 */
@@ -136,6 +147,3 @@ int	main(void)
 //  LONG_MAX =  2147483647
 // ULONG_MAX =  4294967295
 //-ULONG_MAX = -4294967295
-//
-//Essayer tout de même de trouver une façon d'intégrer ce '10'
-//dans l'adresse d'un pointeur sur string
