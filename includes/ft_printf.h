@@ -27,6 +27,7 @@ void	ft_putstr_fd(char *str, int fd);
 size_t	ft_strlen(const char *s);
 int		ft_intlen(int n);
 int		ft_uintlen(unsigned int n);
-int		ft_uintlen_base(unsigned int n, int base);
+int		ft_uintlen_base(unsigned long n, int base);
+void	ft_putlong_base(unsigned long nbr, char *base);
 
 #endif

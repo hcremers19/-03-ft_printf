@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uintlen_base                                    :+:      :+:    :+:   */
+/*   ft_putlong_base.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 18:45:05 by hcremers          #+#    #+#             */
-/*   Updated: 2021/11/10 18:45:07 by hcremers         ###   ########.fr       */
+/*   Created: 2021/11/10 14:54:19 by hcremers          #+#    #+#             */
+/*   Updated: 2021/11/10 14:54:22 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-int	ft_uintlen_base(unsigned long n, int base)
+void	ft_putlong_base(unsigned long nbr, char *base)
 {
-	int	count;
+	unsigned int	len;
 
-	count = 0;
-	while (n)
+	len = ft_strlen(base);
+	if (0 <= nbr && nbr <= (len - 1))
+		ft_putchar_fd(base[nbr], 1);
+	else if (nbr < 0)
 	{
-		n = n / base;
-		count++;
+		ft_putchar_fd('-', 1);
+		ft_putlong_base(-nbr, base);
 	}
-	return (count);
+	else
+	{
+		ft_putlong_base(nbr / len, base);
+		ft_putlong_base(nbr % len, base);
+	}
 }

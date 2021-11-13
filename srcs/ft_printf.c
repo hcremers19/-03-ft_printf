@@ -59,10 +59,10 @@ int	printf_putnbr_base(unsigned int i, int count, char c)
 	return (count);
 }
 
-int	printf_putaddress(unsigned int i, int count)
+int	printf_putaddress(unsigned long i, int count)
 {
 	ft_putstr_fd("0x", 1);
-	ft_putnbr_base(i, "0123456789abcdef");
+	ft_putlong_base(i, "0123456789abcdef");
 	count = count + 2 + ft_uintlen_base(i, ft_strlen("0123456789abcdef"));
 	return (count);
 }
@@ -102,16 +102,14 @@ int	ft_printf(const char *str, ...)
 			else if (str[i] == 'X')
 				count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'X');
 			else if (str[i] == 'p')
-			{
-				count = printf_putaddress(va_arg(arg, unsigned int), count);
-			}
+				count = printf_putaddress(va_arg(arg, unsigned long), count);
 			i++;
 		}
 	}
 	va_end(arg);
 	return (count);
 }
-
+/*
 int	main(void)
 {
 	char	*str;
@@ -127,17 +125,17 @@ int	main(void)
 	printf("String:		%s	%p\n", str, str);
 	printf("Character:	%c	%%\n", ctr);
 	printf("Integer:	%d	%i	%u	%x	%X\n\n", itg, itg, itg, itg, itg);
-	ft_printf("%d\n", ft_printf("%x\t", 4294967295));
-	printf("%d\n", printf("%x\t", 4294967295));
-	ft_printf("%d\n", ft_printf("%p\t", 4294967295));
-	printf("%d\n", printf("%p\t", 4294967295));
+	ft_printf("%d\n", ft_printf("%x\t", -4294967295));
+	printf("%d\n", printf("%x\t", -4294967295));
+	ft_printf("%d\n", ft_printf("%p\t", -4294967295));
+	printf("%d\n", printf("%p\t", -4294967295));
 	return (0);
 }
-
-//LONG_MIN = -2147483648
-//LONG_MAX = 2147483647
-//ULONG_MAX= 4294967295
-//ULONG_MAX= -4294967295
+*/
+//  LONG_MIN = -2147483648
+//  LONG_MAX =  2147483647
+// ULONG_MAX =  4294967295
+//-ULONG_MAX = -4294967295
 //
 //Essayer tout de même de trouver une façon d'intégrer ce '10'
 //dans l'adresse d'un pointeur sur string

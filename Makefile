@@ -14,15 +14,16 @@
 NAME	= libftprintf.a
 
 SCRS	= srcs/ft_printf.c \
-		srcs/ft_putchar_fd.c \
-		srcs/ft_putnbr_base.c \
-		srcs/ft_putnbr_fd.c \
-		srcs/ft_putunbr_fd.c \
-		srcs/ft_putstr_fd.c \
 		srcs/ft_strlen.c \
 		srcs/ft_intlen.c \
 		srcs/ft_uintlen.c \
-		srcs/ft_uintlen_base.c
+		srcs/ft_putnbr_fd.c \
+		srcs/ft_putstr_fd.c \
+		srcs/ft_putchar_fd.c \
+		srcs/ft_putunbr_fd.c \
+		srcs/ft_putnbr_base.c \
+		srcs/ft_uintlen_base.c \
+		srcs/ft_putlong_base.c
 
 OBJS	= ${SCRS:.c=.o}
 
