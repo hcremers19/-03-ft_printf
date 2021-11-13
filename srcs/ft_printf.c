@@ -78,6 +78,27 @@ int	printf_putaddress(unsigned long i, int count)
 	return (count);
 }
 
+int	sub_ft_printf(const char *str, int i, int count, va_list arg)
+{			
+	if (str[i] == '%')
+		count = printf_putchar('%', count);
+	else if (str[i] == 'd' || str[i] == 'i')
+		count = printf_putnbr(va_arg(arg, int), count);
+	else if (str[i] == 'c')
+		count = printf_putchar(va_arg(arg, int), count);
+	else if (str[i] == 's')
+		count = printf_putstr(va_arg(arg, char *), count);
+	else if (str[i] == 'u')
+		count = printf_putunbr(va_arg(arg, unsigned int), count);
+	else if (str[i] == 'x')
+		count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'x');
+	else if (str[i] == 'X')
+		count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'X');
+	else if (str[i] == 'p')
+		count = printf_putaddress(va_arg(arg, unsigned long), count);
+	return (count);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	int		i;
@@ -92,35 +113,19 @@ int	ft_printf(const char *str, ...)
 		if (str[i] != '%')
 		{
 			ft_putchar_fd(str[i], 1);
-			i++;
 			count++;
 		}
 		else
 		{
 			i++;
-			if (str[i] == '%')
-				count = printf_putchar('%', count);
-			else if (str[i] == 'd' || str[i] == 'i')
-				count = printf_putnbr(va_arg(arg, int), count);
-			else if (str[i] == 'c')
-				count = printf_putchar(va_arg(arg, int), count);
-			else if (str[i] == 's')
-				count = printf_putstr(va_arg(arg, char *), count);
-			else if (str[i] == 'u')
-				count = printf_putunbr(va_arg(arg, unsigned int), count);
-			else if (str[i] == 'x')
-				count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'x');
-			else if (str[i] == 'X')
-				count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'X');
-			else if (str[i] == 'p')
-				count = printf_putaddress(va_arg(arg, unsigned long), count);
-			i++;
+			count = sub_ft_printf(str, i, count, arg);
 		}
+		i++;
 	}
 	va_end(arg);
 	return (count);
 }
-/*
+
 int	main(void)
 {
 	char	*str;
@@ -142,7 +147,7 @@ int	main(void)
 	printf("%d\n", printf(" %s \t", NULL));
 	return (0);
 }
-*/
+
 //  LONG_MIN = -2147483648
 //  LONG_MAX =  2147483647
 // ULONG_MAX =  4294967295
