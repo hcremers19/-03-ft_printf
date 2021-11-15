@@ -10,92 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
-
-int	printf_putchar(char c, int count)
-{
-	ft_putchar_fd(c, 1);
-	count++;
-	return (count);
-}
-
-int	printf_putnbr(int i, int count)
-{
-	ft_putnbr_fd(i, 1);
-	if (i > 0)
-		count = count + ft_intlen(i);
-	else if (i <= 0)
-		count = count + ft_intlen(i) + 1;
-	return (count);
-}
-
-int	printf_putunbr(unsigned int i, int count)
-{
-	ft_putunbr_fd(i, 1);
-	if (i)
-		count = count + ft_uintlen(i);
-	else
-		count = count + 1;
-	return (count);
-}
-
-int	printf_putstr(char *str, int count)
-{
-	if (str)
-	{
-		ft_putstr_fd(str, 1);
-		count = count + ft_strlen(str);
-	}
-	else
-	{
-		ft_putstr_fd("(null)", 1);
-		count = count + 6;
-	}
-	return (count);
-}
-
-int	printf_putnbr_base(unsigned int i, int count, char c)
-{
-	if (c == 'x')
-		ft_putnbr_base(i, "0123456789abcdef");
-	else if (c == 'X')
-		ft_putnbr_base(i, "0123456789ABCDEF");
-	if (i)
-		count = count + ft_uintlen_base(i, 16);
-	else
-		count = count + 1;
-	return (count);
-}
-
-int	printf_putaddress(unsigned long i, int count)
-{
-	ft_putstr_fd("0x", 1);
-	ft_putlong_base(i, "0123456789abcdef");
-	if (i)
-		count = count + 2 + ft_uintlen_base(i, ft_strlen("0123456789abcdef"));
-	else
-		count = count + 3;
-	return (count);
-}
+#include "ft_printf.h"
 
 int	sub_ft_printf(const char *str, int i, int count, va_list arg)
 {			
 	if (str[i] == '%')
-		count = printf_putchar('%', count);
+		count = ft_printf_putchar('%', count);
 	else if (str[i] == 'd' || str[i] == 'i')
-		count = printf_putnbr(va_arg(arg, int), count);
+		count = ft_printf_putnbr(va_arg(arg, int), count);
 	else if (str[i] == 'c')
-		count = printf_putchar(va_arg(arg, int), count);
+		count = ft_printf_putchar(va_arg(arg, int), count);
 	else if (str[i] == 's')
-		count = printf_putstr(va_arg(arg, char *), count);
+		count = ft_printf_putstr(va_arg(arg, char *), count);
 	else if (str[i] == 'u')
-		count = printf_putunbr(va_arg(arg, unsigned int), count);
+		count = ft_printf_putunbr(va_arg(arg, unsigned int), count);
 	else if (str[i] == 'x')
-		count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'x');
+		count = ft_printf_putnbr_base(va_arg(arg, unsigned int), count, 'x');
 	else if (str[i] == 'X')
-		count = printf_putnbr_base(va_arg(arg, unsigned int), count, 'X');
+		count = ft_printf_putnbr_base(va_arg(arg, unsigned int), count, 'X');
 	else if (str[i] == 'p')
-		count = printf_putaddress(va_arg(arg, unsigned long), count);
+		count = ft_printf_putaddress(va_arg(arg, unsigned long), count);
 	return (count);
 }
 
@@ -125,7 +59,7 @@ int	ft_printf(const char *str, ...)
 	va_end(arg);
 	return (count);
 }
-
+/*
 int	main(void)
 {
 	char	*str;
@@ -133,7 +67,7 @@ int	main(void)
 	char	ctr;
 
 	str = "string";
-	itg = 0;
+	itg = -2147483648;
 	ctr = 'e';
 	ft_printf("String:		%s	%p\n", NULL, NULL);
 	ft_printf("Character:	%c	%%\n", ctr);
@@ -147,8 +81,8 @@ int	main(void)
 	printf("%d\n", printf(" %s \t", NULL));
 	return (0);
 }
-
-//  LONG_MIN = -2147483648
 //  LONG_MAX =  2147483647
+//  LONG_MIN = -2147483648
 // ULONG_MAX =  4294967295
 //-ULONG_MAX = -4294967295
+*/
