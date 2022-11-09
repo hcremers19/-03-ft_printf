@@ -1,0 +1,61 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    tuto.txt                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/11/09 15:57:19 by hcremers          #+#    #+#              #
+#    Updated: 2022/11/09 16:17:35 by hcremers         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+ft_printf
+- 3 variables: an index, the variadic (va_list), a counter
+- Initiate the variables: the index and the counter at 0, the variadic with
+va_start(<its name>, <the name of the argument of the function>)
+- Browse the string as long as no \0 is found
+	- Print all characters except if it is a %, in that case, increment the
+	counter 1 time, and increment the index in all cases
+	- Increment the index if a % is found and analyze the following character
+	- Provide "put" functions and "len" functions, each case uses one of each
+
+"put" functions
+- putchar and putstr are quite simple, they use a simple "write" with the
+string or character address, using ft_strlen for the length of the string. The
+fd can directly be 1.
+/!\ str must be "protected", write is only used if there is something in the
+received string.
+- putnbr is the one from the Piscine, with the recursive in it.
+	- write the number if it is between 0 and 9, don't forget to add 48 for the
+	transformation from int to char
+	- Handle negatives: write '-' and call the function with the opposite of
+	the number.
+	- All the numbers below 10 are managed, so you just have to take care of
+	the rest: call the function by sending the number divided by 10, and a sec-
+	ond time by sending its % 10.
+- putnbr_base is the same as putnbr with a few more details
+	- you have to determine the value of the base by counting the number of
+	characters in the reference string, you can store this value in an int (ex:
+	len).
+	- replace the 10 from putnbr by len
+	- the putchar of the first condition takes base[nbr] as a parameter to
+	print the character of the desired string
+- adapt int to unsigned, long, etc if necessary, even if it means creating ad-
+ditional functions
+
+"len" functions
+- str works as always
+- int: as long as the int is not equal to 0, divide it by 10 and increment the
+counter at each step.
+- int_base works the same way but 10 is replaced by the length of the string
+used as reference to the base.
+
+how to use variadics
+- include <stdarg.h>
+- declare va_list and give it a name
+- start with va_start which takes as arguments the name of the list and that of
+the string
+- use va_arg which takes as arguments the name of the list and the type of
+variable being processed
+- end with va_end which takes as argument only the name of the list

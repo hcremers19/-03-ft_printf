@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcremers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:14:56 by hcremers          #+#    #+#             */
-/*   Updated: 2021/11/15 13:57:50 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:01:34 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(void)
 	char	ctr;
 
 	str = "string";
-	itg = -2147483648;
+	itg = INT_MIN;
 	ctr = 'e';
 	ft_printf("String:		%s	%p\n", NULL, NULL);
 	ft_printf("Character:	%c	%%\n", ctr);
@@ -81,8 +81,4 @@ int	main(void)
 	printf("%d\n", printf(" %s \t", NULL));
 	return (0);
 }
-//  LONG_MAX =  2147483647
-//  LONG_MIN = -2147483648
-// ULONG_MAX =  4294967295
-//-ULONG_MAX = -4294967295
 */
